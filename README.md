@@ -66,3 +66,9 @@ npx playwright test
 Os testes usam Chromium instalado em `/usr/bin/chromium` neste ambiente; ajuste `executablePath` em `playwright.config.ts` em outra máquina. Cobrem catálogo, filtros, modal/foco, simulador, formulário, galeria, FAQ, menu mobile, overflow, imagens, erros de execução, abertura por sessão e codificação de links do WhatsApp. O caso de menu mobile é pulado no perfil desktop por não se aplicar.
 
 Sitemap vazio até configurar domínio real. Nenhum domínio de produção ou contato fictício é publicado.
+
+## Deploy na Vercel
+
+O arquivo `vercel.json` declara explicitamente o framework Next.js, instalação com `npm ci`, build com `npm run build` e saída `.next`. Isso evita publicar o projeto como site estático sem suas rotas Next.js.
+
+No painel do projeto, o **Root Directory** deve ser a raiz do repositório (`.` ou campo vazio), onde está `package.json`, e a **Production Branch** deve ser `main`. O caminho `/workspace/Previapiscinas` é apenas da máquina de desenvolvimento e não deve ser usado na Vercel. Após mudanças de configuração, faça novo deploy da versão mais recente. Não configure `public` como diretório de saída.
