@@ -111,15 +111,38 @@ test("menu mobile et focus", async ({ page, isMobile }) => {
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await expect(page).toHaveURL(/#piscinas/);
 });
-test("abertura pode ser pulada e não se repete na sessão", async ({ page }) => {
+test("abertura aparece antes da hidratação, termina sozinha e não repete na sessão", async ({
+  page,
+}) => {
+  await expect(page.locator(".intro")).toHaveCount(0);
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.evaluate(() => sessionStorage.removeItem("pv-intro"));
-  await page.reload();
-  await expect(
-    page.getByRole("button", { name: "Pular abertura" }),
-  ).toBeVisible();
-  await page.getByRole("button", { name: "Pular abertura" }).click();
-  await expect(page.locator(".intro")).toHaveCount(0);
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  await page.route("**/_next/static/**/*.js", async (route) => {
+    await gate;
+    await route.continue();
+  });
+  try {
+    await page.reload({ waitUntil: "commit" });
+    await expect(page.locator(".intro")).toBeVisible();
+    await expect(page.locator(".intro button")).toHaveCount(0);
+    expect(
+      await page.evaluate(
+        () =>
+          !!document
+            .elementFromPoint(innerWidth / 2, innerHeight / 2)
+            ?.closest(".intro"),
+      ),
+    ).toBe(true);
+  } finally {
+    release();
+  }
+  await expect(page.locator(".intro")).toHaveCount(0, { timeout: 8000 });
+  await expect(page.locator(".site-shell")).not.toHaveAttribute("inert", "");
+  await expect(page.locator(".hero")).toBeVisible();
   await page.reload();
   await expect(page.locator(".intro")).toHaveCount(0);
   await page.locator(".timeline").scrollIntoViewIfNeeded();

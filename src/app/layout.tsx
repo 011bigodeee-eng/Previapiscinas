@@ -26,7 +26,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var root=document.documentElement;var skip=window.matchMedia('(prefers-reduced-motion: reduce)').matches;try{skip=skip||!!sessionStorage.getItem('pv-intro')}catch(e){}root.dataset.intro=skip?'skip':'play';root.dataset.introStartedAt=String(performance.now())})();`,
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

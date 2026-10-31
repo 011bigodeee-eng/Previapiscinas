@@ -35,7 +35,7 @@ Não há backend de envio ou armazenamento de dados pessoais. O formulário vali
 
 ## Experiência
 
-- Abertura de 3,6 segundos por sessão, com pular e som original sintetizado somente após clique. Movimento reduzido pula a abertura.
+- Abertura silenciosa de 3,6 segundos por sessão, sem controles, presente desde o HTML inicial para evitar mostrar o site antes dela. Movimento reduzido pula a abertura. As animações do hero começam após a abertura.
 - Hero com parallax e reflexo interativo discreto, sem WebGL ou scroll hijacking.
 - Doze conceitos, seis filtros, detalhes com referências complementares e lightbox com navegação.
 - Simulador conceitual: formato/estilo selecionam inspirações; revestimentos alteram o tratamento visual; extras entram no resumo e na mensagem. Não é modelo técnico nem renderização exata de todas as combinações.
