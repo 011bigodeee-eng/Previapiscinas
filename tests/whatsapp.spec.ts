@@ -1,6 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { config, whatsappUrl } from "../src/lib/config";
 test("WhatsApp usa número configurado e codifica a mensagem", () => {
+  expect(config.whatsapp).toBe("5514998809231");
+  const official = new URL(whatsappUrl("Solicitar orçamento")!);
+  expect(official.pathname).toBe("/5514998809231");
   const prior = config.whatsapp;
   try {
     config.whatsapp = "";

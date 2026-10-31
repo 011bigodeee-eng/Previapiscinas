@@ -24,7 +24,7 @@ Use o checkout existente em `/workspace/Previapiscinas`; as tarefas de nuvem já
 
 Copie `.env.example` para `.env.local` e preencha os dados disponíveis. Variáveis `NEXT_PUBLIC_*` são públicas e incorporadas durante o build; reinicie o desenvolvimento ou refaça o build após alterações.
 
-- `NEXT_PUBLIC_WHATSAPP_NUMBER`: número internacional com DDI e DDD. Sem ele, os CTAs preparam uma mensagem copiável e informam que o contato está em configuração.
+- `NEXT_PUBLIC_WHATSAPP_NUMBER`: número internacional com DDI e DDD. O contato oficial padrão é `5514998809231` (+55 14 99880-9231); a variável permite alterá-lo. Todos os CTAs e o formulário usam esse contato.
 - `NEXT_PUBLIC_INSTAGRAM_URL`: perfil oficial (opcional).
 - `NEXT_PUBLIC_ADDRESS`: endereço real a exibir (opcional).
 - `NEXT_PUBLIC_SITE_URL`: domínio público canônico, incluindo `https://`, para sitemap e Open Graph.

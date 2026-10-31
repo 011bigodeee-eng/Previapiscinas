@@ -1,5 +1,13 @@
 import { test, expect } from "@playwright/test";
 test.beforeEach(async ({ page }) => {
+  // Capture the destination without opening an external app or sending anything.
+  await page.addInitScript(() => {
+    window.open = ((url?: string | URL) => {
+      (window as Window & { __whatsappUrl?: string }).__whatsappUrl =
+        String(url);
+      return null;
+    }) as typeof window.open;
+  });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
 });
@@ -33,10 +41,15 @@ test("simulador muda a prévia e prepara preferências sem fingir envio", async 
   await page
     .getByRole("button", { name: "Conversar sobre minha ideia" })
     .click();
-  await expect(page.locator(".message-preview textarea")).toHaveValue(
-    /formato Orgânico; estilo Tropical/,
+  const destination = new URL(
+    await page.evaluate(
+      () => (window as Window & { __whatsappUrl: string }).__whatsappUrl,
+    ),
   );
-  await expect(page.getByRole("status")).toContainText("configuração");
+  expect(destination.pathname).toBe("/5514998809231");
+  expect(destination.searchParams.get("text")).toContain(
+    "formato Orgânico; estilo Tropical",
+  );
 });
 test("formulário valida e prepara mensagem completa", async ({ page }) => {
   await page.getByLabel("Seu nome", { exact: true }).fill("Maria Silva");
@@ -52,6 +65,13 @@ test("formulário valida e prepara mensagem completa", async ({ page }) => {
   await expect(page.locator(".message-preview textarea")).toHaveValue(
     /Maria Silva[\s\S]*São Paulo[\s\S]*Nova piscina[\s\S]*prainha/,
   );
+  const destination = new URL(
+    await page.evaluate(
+      () => (window as Window & { __whatsappUrl: string }).__whatsappUrl,
+    ),
+  );
+  expect(destination.pathname).toBe("/5514998809231");
+  expect(destination.searchParams.get("text")).toContain("Maria Silva");
 });
 test("galeria, FAQ e navegação", async ({ page }) => {
   await page.locator(".gallery-item").first().click();
@@ -151,4 +171,24 @@ test("abertura aparece antes da hidratação, termina sozinha e não repete na s
       page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
     )
     .toBe(true);
+});
+
+test("orçamento do catálogo direciona para o contato oficial", async ({
+  page,
+}) => {
+  await page
+    .locator(".pool-card")
+    .first()
+    .getByRole("button", { name: "Solicitar orçamento" })
+    .click();
+  const destination = new URL(
+    await page.evaluate(
+      () => (window as Window & { __whatsappUrl: string }).__whatsappUrl,
+    ),
+  );
+  expect(destination.hostname).toBe("wa.me");
+  expect(destination.pathname).toBe("/5514998809231");
+  expect(destination.searchParams.get("text")).toContain(
+    "Piscina Retangular Elegance",
+  );
 });

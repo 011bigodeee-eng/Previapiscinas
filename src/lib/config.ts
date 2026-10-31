@@ -1,5 +1,5 @@
 export const config = {
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "",
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5514998809231",
   instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || "",
   address: process.env.NEXT_PUBLIC_ADDRESS || "",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "",
