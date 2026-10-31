@@ -101,16 +101,14 @@ export default function Home() {
               scrub: true,
             },
           });
-          gsap.utils
-            .toArray<HTMLElement>(".reveal")
-            .forEach((el) =>
-              gsap.from(el, {
-                y: 34,
-                opacity: 0,
-                duration: 0.9,
-                scrollTrigger: { trigger: el, start: "top 94%", once: true },
-              }),
-            );
+          gsap.utils.toArray<HTMLElement>(".reveal").forEach((el) =>
+            gsap.from(el, {
+              y: 34,
+              opacity: 0,
+              duration: 0.9,
+              scrollTrigger: { trigger: el, start: "top 94%", once: true },
+            }),
+          );
           gsap.from(".timeline", {
             "--progress": "0%",
             duration: 1.8,
@@ -351,9 +349,10 @@ export default function Home() {
         >
           <div className="hero-image">
             <Image
-              src="/images/hero.webp"
+              src="/images/hero-hq.webp"
               fill
-              sizes="100vw"
+              sizes="(max-width: 760px) 160vw, 100vw"
+              quality={90}
               alt="Piscina de água turquesa junto a uma casa contemporânea, ilustração arquitetônica"
               priority
             />
@@ -512,6 +511,7 @@ export default function Home() {
                   >
                     <PoolImage
                       id={m.id + 1}
+                      sizes="(max-width: 760px) 85vw, 40vw"
                       alt={`${m.name} — conceito ilustrativo`}
                     />
                     <span className="card-label">{m.category}</span>
@@ -573,7 +573,11 @@ export default function Home() {
         </section>
         <section className="film">
           <div className="film-frame">
-            <PoolImage id={5} alt="Piscina ampla com atmosfera de resort" />
+            <PoolImage
+              id={5}
+              sizes="100vw"
+              alt="Piscina ampla com atmosfera de resort"
+            />
             {config.video && (
               <video
                 muted
@@ -581,7 +585,7 @@ export default function Home() {
                 loop
                 playsInline
                 preload="none"
-                poster="/images/pool-5.webp"
+                poster="/images/pool-5-hq.webp"
                 aria-label="Vídeo de piscina"
               >
                 <source src={config.video} type="video/mp4" />
@@ -1173,7 +1177,11 @@ export default function Home() {
                       setGallery(id);
                     }}
                   >
-                    <PoolImage id={id} alt={`Inspiração complementar ${id}`} />
+                    <PoolImage
+                      id={id}
+                      sizes="(max-width: 760px) 30vw, 180px"
+                      alt={`Inspiração complementar ${id}`}
+                    />
                   </button>
                 ))}
               </div>
@@ -1215,7 +1223,11 @@ export default function Home() {
             <ChevronLeft />
           </button>
           <div className="lightbox-photo">
-            <PoolImage id={gallery} alt={models[gallery - 1].name} />
+            <PoolImage
+              id={gallery}
+              sizes="100vw"
+              alt={models[gallery - 1].name}
+            />
           </div>
           <button
             className="gallery-next"

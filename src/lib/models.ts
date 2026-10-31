@@ -85,5 +85,5 @@ export const models = [
   category: m[1],
   tagline: m[2],
   description: m[3],
-  image: `/images/pool-${i + 1}.webp`,
+  image: `/images/pool-${i + 1}-hq.webp`,
 }));

@@ -5,18 +5,21 @@ export function PoolImage({
   alt,
   className = "",
   priority = false,
+  sizes = "(max-width: 760px) 100vw, 60vw",
 }: {
   id: number;
   alt: string;
   className?: string;
   priority?: boolean;
+  sizes?: string;
 }) {
   return (
     <Image
-      src={`/images/pool-${id}.webp`}
+      src={`/images/pool-${id}-hq.webp`}
       alt={alt}
       fill
-      sizes="(max-width: 700px) 100vw, 60vw"
+      sizes={sizes}
+      quality={90}
       className={className}
       priority={priority}
     />

@@ -52,7 +52,7 @@ Não há backend de envio ou armazenamento de dados pessoais. O formulário vali
 - `src/lib/content.ts`: conteúdo editorial, serviços e perguntas.
 - `src/lib/config.ts`: contatos e montagem do WhatsApp.
 - `src/app/globals.css`: direção visual, responsividade e movimento reduzido.
-- `public/images`: hero e catálogo ilustrativo gerados por IA; não são portfólio de obras reais.
+- `public/images`: hero e catálogo ilustrativo gerados por IA; não são portfólio de obras reais. Cada imagem do catálogo é uma cena individual de 1536 × 1024 pixels, servida com qualidade 90 e tamanhos responsivos que consideram os recortes. Os arquivos `-hq.webp` substituem os antigos recortes de baixa resolução e evitam reutilização de cache antigo.
 
 ## Validação
 

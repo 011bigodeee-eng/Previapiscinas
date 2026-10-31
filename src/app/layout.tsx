@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Piscinas de Vinil — seu paraíso particular",
     description: "Arquitetura, água e novas formas de viver.",
-    images: ["/images/pool-1.webp"],
+    images: ["/images/pool-1-hq.webp"],
     locale: "pt_BR",
     type: "website",
   },
